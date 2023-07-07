@@ -1,0 +1,38 @@
+REST => representatioinal state transfer
+
+Verbs =>  GET, PUT, PATCH, POST, DELETE
+Dif entre PATCH y PUT (ambos modifican)=> PUT necesita enviar todos los datos y PUTCH solo los necesarios.
+
+
+QUERY PARAMS
+api.example.com/products
+api.example.com/products?page=1
+api.example.com/products?limit=10&offset=0
+api.example.com/products?region=USA
+api.example.com/products?region?=USA&brand=XZY
+
+ATENCION
+Los endpoints FIJOS deben ir antes que los DINAMICOS.
+De lo contrario al querer entrar a filter, estará entrando en /:id
+
+app.get('/products/filter')
+app.get('/products/:id')
+
+El ROUTING  se encarga del acceso
+
+SERVICES: Logica del negocio
+Clean =
+Entities =>
+           Uses cases =>
+                        Controllers
+                        Gateways
+                        Presenters =>
+                                      Web
+                                      Devices
+                                      DB
+                                      UI
+                                      External Interfaces
+
+Entities = Base del negocio, entidad del producto, categorias, ordenes de compra, etx
+Uses cases = Logica de negocios (services)
+Controllers = Brindan el acceso, routing y middlewares
