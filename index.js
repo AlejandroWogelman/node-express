@@ -1,4 +1,6 @@
 import express from 'express';
+import cors from 'cors';
+
 import routerApi from './routes/index.js';
 import {
   boomErrorHandler,
@@ -11,6 +13,22 @@ const port = 4000;
 
 app.use(express.json());
 //Lee el body en los POST
+
+const whitelist = [
+  'http://localhost:8080',
+  'https://myapp.com',
+  'http://127.0.0.1:5500',
+];
+const options = {
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('no permitido'));
+    }
+  },
+};
+app.use(cors(options));
 
 //recibimos un get a la ruta
 app.get('/', (req, res) => {
