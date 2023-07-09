@@ -9,13 +9,14 @@ import {
 } from './middleware/error.handler.js';
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 app.use(express.json());
 //Lee el body en los POST
 
 const whitelist = [
   'http://localhost:8080',
+  'http://localhost:4000',
   'https://myapp.com',
   'http://127.0.0.1:5500',
 ];
@@ -31,14 +32,14 @@ const options = {
 app.use(cors(options));
 
 //recibimos un get a la ruta
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Hola mi server en express');
 });
-app.get('/nueva', (req, res) => {
+app.get('/api/nueva', (req, res) => {
   res.send('Hola soy una ruta nueva');
 });
 
-app.get('/ejemplo', (req, res) => {
+app.get('/api/ejemplo', (req, res) => {
   const { data, name } = req.query;
   res.json({
     data,
